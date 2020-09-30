@@ -1,0 +1,9 @@
+./rpc_controller.h:class RpcController : public google::protobuf::RpcController
+./rpc_channel.h:class RpcChannel : public google::protobuf::RpcChannel {
+./service_mgr.h:using google::protobuf::MethodDescriptor;
+./service_mgr.h:using google::protobuf::Message;
+./service_mgr.h:using google::protobuf::Service;
+./service_mgr.h:        google::protobuf::Service *_rpc_service;
+./service_mgr.h:    inline google::protobuf::Service * GetService (unsigned int service_id) {
+./service_mgr.h:    void HandleRpcCall(unsigned char *call_data, size_t length, std::string &ret_data, google::protobuf::RpcController *);
+./service_mgr.h:    bool RegisterRpcService(::google::protobuf::Service *rpc_service, unsigned int service_id);
