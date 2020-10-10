@@ -12,6 +12,10 @@
 #include "rpc_client.h"
 #include "rpc.pb.h"
 
+/*
+    rpc_client: 封装了网络层，并实现对rpc.proto内部封装的解析, 客户端直接调用rpc_client，stub到channel上，不用关心内部实现
+*/
+
 using namespace PBRPC;
 
 inline void RpcCallBack( google::protobuf::Closure *c, int wake_fd) {
