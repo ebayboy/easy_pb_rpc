@@ -15,6 +15,16 @@ namespace PBRPC
     class RpcServiceMgr
     {
     public:
+        RpcServiceMgr()
+        {
+            _services = new ServiceData[MAX_RPC_SERVICEs];
+        }
+        ~RpcServiceMgr();
+
+        void HandleRpcCall(unsigned char *call_data, size_t length, std::string &ret_data, google::protobuf::RpcController *);
+        bool RegisterRpcService(::google::protobuf::Service *rpc_service, unsigned int service_id);
+
+    public:
         struct MethodData
         {
             const MethodDescriptor *_method_descriptor;
@@ -49,15 +59,5 @@ namespace PBRPC
         {
             return _services[service_id]._rpc_service;
         }
-
-    public:
-        RpcServiceMgr()
-        {
-            _services = new ServiceData[MAX_RPC_SERVICEs];
-        }
-        ~RpcServiceMgr();
-
-        void HandleRpcCall(unsigned char *call_data, size_t length, std::string &ret_data, google::protobuf::RpcController *);
-        bool RegisterRpcService(::google::protobuf::Service *rpc_service, unsigned int service_id);
     };
 } // namespace PBRPC
