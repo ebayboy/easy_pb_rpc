@@ -6,6 +6,8 @@
 #include "helloworld.pb.h"
 #include "rpc_controller.h"
 
+//client
+
 using namespace PBRPC;
 
 void FooDone(FooResponse *response, RpcController *controller) {
@@ -22,13 +24,17 @@ void FooDone(FooResponse *response, RpcController *controller) {
 int main(int argc, char *argv[]) {
 	RpcClient client;
 	RpcChannel channel(&client, "127.0.0.1:18669");
-	EchoService::Stub echo_clt(&channel);
+	
+	//service stub channel
+	EchoService::Stub echo_clt(&channel); 
+
 	FooRequest request;
 	request.set_text("test1");
 	request.set_times(1);
 
 	FooResponse response;
 	RpcController controller;
+	//set protobuf::RpcController* controller: controller
 	echo_clt.Foo(&controller, &request, &response, NULL);
 	if (controller.Failed()) {
 		printf("test 1 Rpc Call Failed : %s\n", controller.ErrorText().c_str());
@@ -40,6 +46,7 @@ int main(int argc, char *argv[]) {
 	request.set_times(2);
 	FooResponse *response2 = new FooResponse;
 	RpcController *controller2 = new RpcController;
+	//set  ::google::protobuf::Closure* done:  NewCallback
 	echo_clt.Foo(controller2, &request, response2, google::protobuf::NewCallback(&FooDone, response2, controller2));
 	
 	request.set_text("test3");

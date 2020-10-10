@@ -8,13 +8,17 @@
 
 using namespace PBRPC;
 
-class EchoServiceImpl : public EchoService {
-	public:
+//protobuf EchoService的类实现
+class EchoServiceImpl : public EchoService
+{
+public:
 	EchoServiceImpl() {}
-	virtual void Foo(::google::protobuf::RpcController* controller,
-                       const ::FooRequest* request,
-                       ::FooResponse* response,
-                       ::google::protobuf::Closure* done) {
+	//Foo方法实现
+	virtual void Foo(::google::protobuf::RpcController *controller,
+					 const ::FooRequest *request,
+					 ::FooResponse *response,
+					 ::google::protobuf::Closure *done)
+	{
 		std::string str = request->text();
 		std::string tmp = str;
 		for (int i = 1; i < request->times(); i++)
@@ -23,15 +27,12 @@ class EchoServiceImpl : public EchoService {
 		response->set_result(true);
 	}
 };
-  
 
-
-int main(int argc, char *argv[]) {
-	EchoServiceImpl *impl = new EchoServiceImpl();
+int main(int argc, char *argv[])
+{
+	EchoServiceImpl *impl = new EchoServiceImpl(); //实现服务
 	RpcServer rpc_server;
-	rpc_server.RegisterService(impl);
-	rpc_server.Start();
+	rpc_server.RegisterService(impl); //注册服务
+	rpc_server.Start(); //启动： 做了什么?
 	return 0;
 }
-
-

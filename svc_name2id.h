@@ -15,6 +15,7 @@ class SERVICE_NAME2ID {
     map<string, unsigned int> _ServiceName2IdTbl;
 
 public:
+    //初始化读取services.cfg中的方法， 存储方法名和id到map中
     inline bool Init()	{
         ifstream in(ALL_SERVICEs_CFG);
         if (in.fail())
