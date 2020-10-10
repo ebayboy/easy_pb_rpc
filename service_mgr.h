@@ -3,6 +3,8 @@
 #include <google/protobuf/descriptor.h>
 #include "common.h"
 
+//RpcServiceMgr : RpcService Manager
+
 namespace PBRPC
 {
 

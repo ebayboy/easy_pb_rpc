@@ -7,6 +7,8 @@
 
 #include "common.h"
 
+//used by server && client ，map string service && method name to id
+
 #define ALL_SERVICEs_CFG "services.cfg"
 using namespace std;
 

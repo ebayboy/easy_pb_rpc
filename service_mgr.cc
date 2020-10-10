@@ -70,7 +70,7 @@ void RpcServiceMgr::HandleRpcCall(unsigned char *call_data, size_t length, std::
     rpc_data.ParseFromArray(call_data, length); 
     controller->Reset();
 
-    //获取service_id和method_id
+    //find method from method array: service_id和method_id
     RpcServiceMgr::MethodData *the_method = GetMethod(rpc_data.service_id(), rpc_data.method_id());
     Service *rpc_service = GetService(rpc_data.service_id());
 
