@@ -83,6 +83,7 @@ void RpcServiceMgr::HandleRpcCall(unsigned char *call_data, size_t length, std::
     //CallMethod, 获取response Message
     rpc_service->CallMethod(the_method->_method_descriptor, controller, request, response, NULL);
 
+    //process rpc.proto RpcResponseData
     RPC::RpcResponseData response_data;
     std::string content;
     response->SerializeToString(&content); //序列化reponse Message应答内容

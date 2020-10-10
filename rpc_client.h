@@ -10,6 +10,7 @@
 
 namespace PBRPC {
 
+//used inner rpc_client.cc
 class MessageQueue {
 public:
     enum {CONNECT, CALL};
@@ -73,6 +74,7 @@ public:
 
 class RpcClient;
 
+//used inner rpc_client.cc
 class Session {
 public:
 
