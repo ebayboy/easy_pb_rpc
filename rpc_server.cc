@@ -147,7 +147,7 @@ void RpcServer::ProcessRpcData(struct bufferevent *bev, unsigned int conn_id, st
             buf_len = evbuffer_get_length(input);
             if (buf_len < conn->_data_length)
                 return;
-            std::string ret_str;
+            std::string ret_str;  //序列化字符串
             RpcController rpc_controller;
             _service_mgr.HandleRpcCall(evbuffer_pullup(input, conn->_data_length), conn->_data_length, ret_str, &rpc_controller);
             if (rpc_controller.Failed())

@@ -62,27 +62,34 @@ bool RpcServiceMgr::RegisterRpcService(Service *rpc_service, unsigned int servic
     return true;
 }
 
+//处理client rpc请求
 void RpcServiceMgr::HandleRpcCall(unsigned char *call_data, size_t length, std::string &ret_data, google::protobuf::RpcController *controller)
 {
-    RPC::RpcRequestData rpc_data;
-    rpc_data.ParseFromArray(call_data, length);
+    //反序列化RequestData
+    RPC::RpcRepquestData rpc_data;
+    rpc_data.ParseFromArray(call_data, length); 
     controller->Reset();
 
-    RpcServiceMgr::MethodData *the_method = GetMethod(rpc_data.service_id(),
-                                                      rpc_data.method_id());
+    //获取service_id和method_id
+    RpcServiceMgr::MethodData *the_method = GetMethod(rpc_data.service_id(), rpc_data.method_id());
     Service *rpc_service = GetService(rpc_data.service_id());
 
     Message *request = the_method->_request_proto->New();
     Message *response = the_method->_response_proto->New();
+    
+    //反序列化request Message
     request->ParseFromString(rpc_data.content());
 
+    //CallMethod, 获取response Message
     rpc_service->CallMethod(the_method->_method_descriptor, controller, request, response, NULL);
 
     RPC::RpcResponseData response_data;
     std::string content;
+    response->SerializeToString(&content); //序列化reponse Message应答内容
+
     response_data.set_call_id(rpc_data.call_id());
-    response->SerializeToString(&content);
     response_data.set_content(content);
+    //序列化RpcResponseData
     response_data.SerializeToString(&ret_data);
 
     delete request;
